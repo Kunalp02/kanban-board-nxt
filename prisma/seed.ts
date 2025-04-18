@@ -1,4 +1,4 @@
-import { PrismaClient, Role } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
@@ -7,7 +7,7 @@ async function main() {
       name: 'Admin User',
       email: 'admin@kanban.com',
       password: 'admin123', // You should hash this in production
-      role: Role.ADMIN,
+      role: 'ADMIN',
     },
   });
 
@@ -16,7 +16,7 @@ async function main() {
       name: 'Regular User',
       email: 'user@kanban.com',
       password: 'user123', // You should hash this in production
-      role: Role.USER,
+      role: 'USER',
     },
   });
 
