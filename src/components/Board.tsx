@@ -11,7 +11,7 @@ import {
   DragOverEvent
 } from "@dnd-kit/core";
 
-import { SortableContext, arrayMove, sortableKeyboardCoordinates, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 
 import { Task } from '@/types/task';
 import Column from './Column';
