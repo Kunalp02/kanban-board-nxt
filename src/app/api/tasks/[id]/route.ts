@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
+interface Params {
+  id: string;
+}
+
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Params }
 ) {
   const { id } = params; 
 
@@ -14,7 +18,6 @@ export async function PATCH(
   }
 
   try {
-    // Async operation: parsing request body
     const body = await req.json();
     const { title, description, status, dueDate } = body;
     console.log("In PATCH request:", title, description, status, dueDate);
@@ -23,7 +26,6 @@ export async function PATCH(
       return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
     }
 
-    // Async operation: updating task
     const updated = await prisma.task.update({
       where: { id },
       data: {
