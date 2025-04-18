@@ -58,7 +58,7 @@ export async function GET(_req: NextRequest) {
         },
       });
 
-      const formatted: Task[] = tasks.map((task) => ({
+      const formatted: Task[] = tasks.map((task: any) => ({
         id: task.id,
         title: task.title,
         description: task.description ?? undefined,
