@@ -9,7 +9,7 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: Params }
 ) {
-  const { id } = params; 
+  const { id } = await params; 
 
   console.log("Task ID:", id);
 
