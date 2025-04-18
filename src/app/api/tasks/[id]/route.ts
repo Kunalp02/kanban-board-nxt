@@ -1,16 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-interface Params {
-  id: string;
+// Params is directly available in the route handler, no need for Promise
+interface PageProps {
+  params: Promise<{
+    id: string;
+  }>
 }
 
-export async function PATCH(
-  req: NextRequest,
-  { params }: { params: Params }
-) {
-  const { id } = await params; 
-
+export async function PATCH(request: NextRequest, { params }: PageProps) {
+  const { id } = await params;
   console.log("Task ID:", id);
 
   if (!id) {
@@ -18,8 +17,9 @@ export async function PATCH(
   }
 
   try {
-    const body = await req.json();
+    const body = await request.json();
     const { title, description, status, dueDate } = body;
+
     console.log("In PATCH request:", title, description, status, dueDate);
 
     if (!title || !status || !dueDate) {
