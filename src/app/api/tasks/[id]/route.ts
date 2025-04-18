@@ -4,26 +4,31 @@ import { prisma } from '@/lib/prisma';
 export async function PATCH(
   req: NextRequest,
   { params }: { params: { id: string } }
-){
-  const { id } = await params;
-  console.log(id);
+) {
+  const { id } = params; 
+
+  console.log("Task ID:", id);
+
   if (!id) {
     return NextResponse.json({ message: 'Task ID is required' }, { status: 400 });
   }
 
   try {
+    // Async operation: parsing request body
     const body = await req.json();
     const { title, description, status, dueDate } = body;
-    console.log("in patch req" + title, description, status, dueDate );
+    console.log("In PATCH request:", title, description, status, dueDate);
+
     if (!title || !status || !dueDate) {
       return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
     }
 
+    // Async operation: updating task
     const updated = await prisma.task.update({
       where: { id },
       data: {
         title,
-        description: description ?? '', 
+        description: description ?? '',
         status,
         dueDate: new Date(dueDate),
       },
